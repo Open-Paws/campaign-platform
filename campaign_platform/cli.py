@@ -17,7 +17,7 @@ from typing import Optional
 import click
 from sqlalchemy.orm import Session
 
-from platform.campaigns.models import (
+from campaign_platform.campaigns.models import (
     Campaign,
     Action,
     Target,
@@ -29,10 +29,10 @@ from platform.campaigns.models import (
     create_tables,
     get_session,
 )
-from platform.campaigns.campaign_builder import CampaignBuilder
-from platform.campaigns.action_generator import ActionGenerator
-from platform.metrics.impact_tracker import ImpactTracker
-from platform.metrics.roi_calculator import ROICalculator
+from campaign_platform.campaigns.campaign_builder import CampaignBuilder
+from campaign_platform.campaigns.action_generator import ActionGenerator
+from campaign_platform.metrics.impact_tracker import ImpactTracker
+from campaign_platform.metrics.roi_calculator import ROICalculator
 
 
 def get_db() -> Session:
@@ -497,7 +497,7 @@ def add_target(
         if phone:
             contacts["phone"] = phone
 
-        from platform.campaigns.models import TargetType
+        from campaign_platform.campaigns.models import TargetType
         target = Target(
             campaign_id=campaign_id,
             name=name,

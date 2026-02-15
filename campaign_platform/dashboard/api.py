@@ -12,7 +12,7 @@ from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 import os
 
-from platform.campaigns.models import (
+from campaign_platform.campaigns.models import (
     Campaign,
     Action,
     Target,
@@ -26,10 +26,10 @@ from platform.campaigns.models import (
     get_session,
     create_tables,
 )
-from platform.campaigns.campaign_builder import CampaignBuilder
-from platform.campaigns.action_generator import ActionGenerator
-from platform.metrics.impact_tracker import ImpactTracker
-from platform.metrics.roi_calculator import ROICalculator
+from campaign_platform.campaigns.campaign_builder import CampaignBuilder
+from campaign_platform.campaigns.action_generator import ActionGenerator
+from campaign_platform.metrics.impact_tracker import ImpactTracker
+from campaign_platform.metrics.roi_calculator import ROICalculator
 
 app = FastAPI(
     title="Campaign Coordination Platform",

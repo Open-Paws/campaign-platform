@@ -411,7 +411,7 @@ class ActionScheduler:
         for i in range(ramp_count):
             # Exponential distribution: more comments closer to deadline
             fraction = (i / max(ramp_count - 1, 1)) ** 2  # quadratic ramp
-            day_offset = int(fraction * ramp_up_days)
+            day_offset = int(fraction * (ramp_up_days - 1))  # -1 to stay before deadline
             comment_time = ramp_start + timedelta(days=day_offset, hours=random.randint(9, 16))
             scheduled.append(ScheduledAction(
                 action_id=action_ids[idx],

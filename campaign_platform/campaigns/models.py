@@ -278,7 +278,7 @@ class Participant(Base):
 
     @property
     def reliability_score(self) -> float:
-        if self.actions_completed == 0:
+        if not self.actions_completed:
             return 0.5  # neutral for new participants
         return min(1.0, self.actions_verified / max(1, self.actions_completed))
 

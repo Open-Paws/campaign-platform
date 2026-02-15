@@ -12,7 +12,7 @@ from datetime import datetime, timedelta
 from typing import Dict, List, Optional, Any
 from collections import defaultdict, Counter
 
-from platform.campaigns.models import (
+from campaign_platform.campaigns.models import (
     Campaign,
     Action,
     ActionType,

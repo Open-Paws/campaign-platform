@@ -8,7 +8,7 @@ from datetime import date, datetime, timedelta
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, sessionmaker
 
-from platform.campaigns.models import (
+from campaign_platform.campaigns.models import (
     Base,
     Campaign,
     Action,
@@ -21,11 +21,11 @@ from platform.campaigns.models import (
     TargetType,
     create_tables,
 )
-from platform.campaigns.campaign_builder import CampaignBuilder
-from platform.campaigns.action_generator import ActionGenerator, ActionSpec
-from platform.metrics.impact_tracker import ImpactTracker
-from platform.metrics.roi_calculator import ROICalculator
-from platform.scheduler.action_scheduler import ActionScheduler, ScheduleWindow
+from campaign_platform.campaigns.campaign_builder import CampaignBuilder
+from campaign_platform.campaigns.action_generator import ActionGenerator, ActionSpec
+from campaign_platform.metrics.impact_tracker import ImpactTracker
+from campaign_platform.metrics.roi_calculator import ROICalculator
+from campaign_platform.scheduler.action_scheduler import ActionScheduler, ScheduleWindow
 
 
 # --- Fixtures ---
