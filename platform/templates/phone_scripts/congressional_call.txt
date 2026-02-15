@@ -1,0 +1,98 @@
+==============================================================
+PHONE SCRIPT: CONGRESSIONAL OFFICE CALL
+==============================================================
+Target: {{ legislator_name }} ({{ party }}-{{ state }})
+Office: {{ office_type }} ({{ phone_number }})
+Issue: {{ bill_name }} ({{ bill_number }})
+Your ask: {{ specific_ask }}
+==============================================================
+
+BEFORE YOU CALL:
+- Calls take 2-5 minutes. You will likely speak with a staffer, not the
+  legislator. That is normal and effective -- staffers track constituent
+  contacts and brief the legislator.
+- Have your zip code ready to confirm you are a constituent.
+- It is okay to read from this script. It is okay to be nervous.
+- Be polite to the staffer. They are your ally in getting your message heard.
+
+--------------------------------------------------------------
+WHEN THEY ANSWER:
+--------------------------------------------------------------
+
+"Hello, my name is {{ your_name }} and I'm a constituent from
+{{ your_city_and_zip }}. I'm calling about {{ bill_name }}."
+
+--------------------------------------------------------------
+IF ASKED TO LEAVE A MESSAGE (voicemail):
+--------------------------------------------------------------
+
+"My name is {{ your_name }}, I'm a constituent from {{ your_city_and_zip }}.
+My phone number is {{ your_phone }}.
+
+I'm calling to ask {{ legislator_title }} {{ legislator_last_name }} to
+{{ specific_ask }}.
+
+{{ primary_reason }}
+
+Thank you."
+
+[Hang up. You are done. This counts.]
+
+--------------------------------------------------------------
+IF YOU REACH A STAFFER:
+--------------------------------------------------------------
+
+After your introduction, deliver your message:
+
+"I'm calling to ask {{ legislator_title }} {{ legislator_last_name }} to
+{{ specific_ask }}."
+
+THE STAFFER MAY ASK WHY. YOUR ANSWER:
+
+"{{ primary_reason }}"
+
+{% if personal_story %}
+IF APPROPRIATE, ADD YOUR PERSONAL CONNECTION:
+"This matters to me personally because {{ personal_story }}."
+{% endif %}
+
+--------------------------------------------------------------
+HANDLING RESPONSES:
+--------------------------------------------------------------
+
+IF they say the legislator supports your position:
+"That's great to hear. Can you tell me what specific steps
+{{ legislator_title }} {{ legislator_last_name }} is taking on this?
+Will they co-sponsor / vote yes?"
+
+IF they say the legislator opposes your position:
+"I understand, but I want {{ legislator_title }} {{ legislator_last_name }}
+to know that constituents feel strongly about this. {{ counter_argument }}
+Will you make sure my call is logged?"
+
+IF they say the legislator is undecided:
+"I hope {{ legislator_title }} {{ legislator_last_name }} will consider
+the evidence on this. {{ key_data_point }}. Can I count on them to
+{{ specific_ask }}?"
+
+IF they try to end the call quickly:
+That is fine. Your call has been logged. Thank them and hang up.
+
+--------------------------------------------------------------
+CLOSING:
+--------------------------------------------------------------
+
+"Thank you for your time. Please make sure my call is recorded.
+Have a good day."
+
+--------------------------------------------------------------
+AFTER THE CALL:
+--------------------------------------------------------------
+
+Log your call at: {{ tracking_url }}
+- Did you reach a person or leave voicemail?
+- What was the staffer's response?
+- Any commitments made?
+
+Total time: ~3-5 minutes. You just participated in democracy.
+==============================================================

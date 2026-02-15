@@ -1,0 +1,90 @@
+==============================================================
+TWITTER/X THREAD TEMPLATE
+Campaign: {{ campaign_name }}
+Hashtag: #{{ campaign_hashtag }}
+==============================================================
+
+POSTING STRATEGY:
+- Post during peak engagement: 9-11am or 7-9pm in target's timezone
+- Tag the target directly in tweet 1 (forces notification)
+- Tag journalists and allied orgs in final tweet (amplification)
+- Include image or video in tweet 1 (2-3x more engagement)
+- Reply to your own thread to build it (do not use thread apps)
+
+--------------------------------------------------------------
+TWEET 1 (THE HOOK) - must stop the scroll
+--------------------------------------------------------------
+
+{{ target_handle }} {{ hook_statement }}
+
+{{ key_statistic_or_finding }}
+
+Here is what {{ target_name }} does not want you to know:
+
+A thread. 🧵
+
+--------------------------------------------------------------
+TWEET 2 (THE EVIDENCE)
+--------------------------------------------------------------
+
+{{ evidence_paragraph }}
+
+Source: {{ source_url }}
+
+[Attach: screenshot of report/document/image evidence]
+
+--------------------------------------------------------------
+TWEET 3 (THE COMPARISON)
+--------------------------------------------------------------
+
+For context:
+
+{{ industry_comparison }}
+
+{{ competitor_handle }} has already committed to {{ competitor_commitment }}.
+
+{{ target_handle }}, what is your excuse?
+
+--------------------------------------------------------------
+TWEET 4 (THE HUMAN/ANIMAL IMPACT)
+--------------------------------------------------------------
+
+What does this mean in practice?
+
+{{ impact_description }}
+
+{{ impact_statistic }}
+
+[Attach: most compelling visual evidence]
+
+--------------------------------------------------------------
+TWEET 5 (THE ASK + AMPLIFICATION)
+--------------------------------------------------------------
+
+We are asking {{ target_handle }} to:
+
+1. {{ ask_one }}
+2. {{ ask_two }}
+3. {{ ask_three }}
+
+RT if you agree. Tag {{ target_handle }} in your reply.
+
+{{ journalist_handles }}
+{{ allied_org_handles }}
+
+#{{ campaign_hashtag }} {{ additional_hashtags }}
+
+==============================================================
+ENGAGEMENT INSTRUCTIONS:
+==============================================================
+
+After posting:
+1. Reply to any responses from the target (screenshot everything first)
+2. Quote-tweet allied responses with added context
+3. If the target deletes or blocks, screenshot and post about it
+   ("{{ target_handle }} is deleting tweets about {{ issue }}. Here is
+   what they do not want you to see:")
+4. Cross-post key tweets to Instagram stories and LinkedIn
+
+Track engagement at: {{ tracking_url }}
+==============================================================

@@ -1,0 +1,57 @@
+RE: {{ docket_number }} - {{ rule_title }}
+{{ agency_name }}
+{{ submission_address }}
+
+Dear {{ agency_contact }}:
+
+I am submitting this comment in response to the proposed rule regarding {{ rule_summary }}, published in the Federal Register on {{ publication_date }}.
+
+STANDING:
+{{ standing_statement }}
+
+SUMMARY OF MY COMMENT:
+I {{ support_or_oppose }} the proposed rule {{ with_modifications }}. Specifically, I urge the agency to:
+
+{% for recommendation in recommendations %}
+{{ loop.index }}. {{ recommendation }}
+{% endfor %}
+
+SUBSTANTIVE BASIS:
+
+1. Scientific Evidence
+{{ scientific_evidence }}
+
+The agency's own data shows {{ agency_data_point }}. Peer-reviewed research published in {{ journal_name }} ({{ citation }}) further demonstrates {{ research_finding }}.
+
+2. Legal Authority
+The agency has clear authority under {{ statutory_authority }} to {{ action_description }}. In {{ relevant_case }}, the court held that {{ legal_precedent }}.
+
+The agency's stated goal of {{ agency_goal }} is inconsistent with the current proposal because {{ inconsistency_explanation }}.
+
+3. Economic Analysis
+The agency's cost-benefit analysis {{ cba_critique }}. Specifically:
+
+- The proposed rule {{ underestimates_or_overestimates }} the cost of {{ cost_factor }} by failing to account for {{ missing_factor }}
+- Externalities not included in the analysis include: {{ externalities }}
+- The economic benefits of the stronger standard I propose include: {{ benefits }}
+
+{% if industry_comparison %}
+4. Industry Precedent
+{{ industry_comparison }}. This demonstrates that the standard I am requesting is technically feasible and economically viable.
+{% endif %}
+
+SPECIFIC REGULATORY TEXT RECOMMENDATIONS:
+{% for text_change in text_changes %}
+- Section {{ text_change.section }}: Change "{{ text_change.current }}" to "{{ text_change.proposed }}" because {{ text_change.rationale }}
+{% endfor %}
+
+CONCLUSION:
+The agency has both the authority and the obligation to act. The evidence supports a {{ stronger_or_weaker }} standard than currently proposed. I urge you to {{ final_ask }}.
+
+I request that this comment be included in the public docket and considered in the final rulemaking.
+
+Respectfully submitted,
+{{ sender_name }}
+{{ sender_credentials }}
+{{ sender_contact }}
+{{ submission_date }}

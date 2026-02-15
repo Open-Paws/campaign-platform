@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campaign Coordination Platform</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #0a0a0f;
+            --surface: #12121a;
+            --surface2: #1a1a25;
+            --border: #2a2a3a;
+            --text: #e0e0e8;
+            --text-dim: #8888a0;
+            --accent: #4a9eff;
+            --accent2: #7c5cfc;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #06b6d4;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* --- Header --- */
+        header {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header h1 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+        header h1 span { color: var(--accent); }
+        .header-stats {
+            display: flex;
+            gap: 2rem;
+        }
+        .header-stat {
+            text-align: center;
+        }
+        .header-stat .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        .header-stat .label {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* --- Layout --- */
+        .container {
+            display: grid;
+            grid-template-columns: 300px 1fr 320px;
+            gap: 1px;
+            background: var(--border);
+            min-height: calc(100vh - 60px);
+        }
+
+        /* --- Sidebar: Campaign List --- */
+        .sidebar {
+            background: var(--surface);
+            padding: 1rem;
+            overflow-y: auto;
+        }
+        .sidebar h2 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-dim);
+            margin-bottom: 1rem;
+        }
+        .campaign-card {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.85rem;
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .campaign-card:hover, .campaign-card.active {
+            border-color: var(--accent);
+        }
+        .campaign-card .name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+        .campaign-card .meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 0.15rem 0.5rem;
+            border-radius: 99px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .status-draft { background: #333; color: #999; }
+        .status-active { background: #0a3320; color: var(--success); }
+        .status-escalating { background: #3d1a00; color: var(--warning); }
+        .status-won { background: #0a2a3d; color: var(--info); }
+        .status-paused { background: #2a2a00; color: #aaa060; }
+
+        .progress-bar {
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+        .progress-bar .fill {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 2px;
+            transition: width 0.5s ease;
+        }
+
+        .btn-new-campaign {
+            display: block;
+            width: 100%;
+            padding: 0.7rem;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        .btn-new-campaign:hover { opacity: 0.9; }
+
+        /* --- Main Content --- */
+        .main {
+            background: var(--bg);
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+
+        .section-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-dim);
+            margin: 1.5rem 0 0.75rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .section-title:first-child { margin-top: 0; }
+
+        /* Campaign Detail */
+        .campaign-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+        .campaign-header h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+        .campaign-goal {
+            background: var(--surface);
+            border-left: 3px solid var(--accent);
+            padding: 0.75rem 1rem;
+            border-radius: 0 6px 6px 0;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        /* Phase cards */
+        .phases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 0.75rem;
+        }
+        .phase-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+        .phase-card .phase-num {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: var(--accent);
+            font-weight: 700;
+        }
+        .phase-card .phase-name {
+            font-weight: 600;
+            margin: 0.25rem 0;
+        }
+        .phase-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        .phase-card li {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            padding: 0.2rem 0;
+            padding-left: 1rem;
+            position: relative;
+        }
+        .phase-card li::before {
+            content: "\2022";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        /* Metrics grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        .metric-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.85rem;
+            text-align: center;
+        }
+        .metric-card .value {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        .metric-card .label {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+        .metric-card.emails .value { color: var(--accent); }
+        .metric-card.calls .value { color: var(--success); }
+        .metric-card.comments .value { color: var(--warning); }
+        .metric-card.reviews .value { color: var(--danger); }
+        .metric-card.media .value { color: var(--info); }
+        .metric-card.responses .value { color: var(--accent2); }
+
+        /* Action Feed */
+        .action-feed {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .action-item {
+            display: grid;
+            grid-template-columns: 50px 1fr auto auto;
+            gap: 0.75rem;
+            align-items: center;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.7rem 1rem;
+        }
+        .action-item .time-badge {
+            background: var(--surface2);
+            border-radius: 6px;
+            padding: 0.3rem;
+            text-align: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        .action-item .time-badge small {
+            display: block;
+            font-size: 0.6rem;
+            color: var(--text-dim);
+            font-weight: 400;
+        }
+        .action-item .action-info .title {
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        .action-item .action-info .desc {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+        .action-item .type-badge {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            background: var(--surface2);
+            color: var(--text-dim);
+        }
+        .btn-claim {
+            padding: 0.35rem 0.75rem;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .btn-claim:hover { opacity: 0.85; }
+
+        /* --- Right Panel: Activity + Quick Actions --- */
+        .right-panel {
+            background: var(--surface);
+            padding: 1rem;
+            overflow-y: auto;
+        }
+        .right-panel h2 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-dim);
+            margin-bottom: 1rem;
+        }
+
+        .time-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .time-btn {
+            padding: 0.6rem;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            cursor: pointer;
+            text-align: center;
+            transition: border-color 0.2s;
+        }
+        .time-btn:hover, .time-btn.active {
+            border-color: var(--accent);
+            background: #1a2a3a;
+        }
+        .time-btn .mins {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        .time-btn .desc {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+        }
+
+        .activity-item {
+            display: flex;
+            gap: 0.6rem;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.8rem;
+        }
+        .activity-item .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-top: 0.35rem;
+            flex-shrink: 0;
+        }
+        .dot.completed { background: var(--success); }
+        .dot.claimed { background: var(--warning); }
+        .dot.new { background: var(--accent); }
+        .activity-item .time {
+            color: var(--text-dim);
+            font-size: 0.7rem;
+        }
+
+        /* Chart placeholder */
+        .chart-container {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+        }
+        .chart-container h3 {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            margin-bottom: 0.75rem;
+        }
+        .bar-chart {
+            flex: 1;
+            display: flex;
+            align-items: flex-end;
+            gap: 4px;
+        }
+        .bar-chart .bar {
+            flex: 1;
+            background: var(--accent);
+            border-radius: 3px 3px 0 0;
+            min-height: 4px;
+            position: relative;
+            transition: height 0.5s ease;
+        }
+        .bar-chart .bar:hover { opacity: 0.8; }
+        .bar-chart .bar .label {
+            position: absolute;
+            bottom: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.6rem;
+            color: var(--text-dim);
+            white-space: nowrap;
+        }
+
+        /* --- Empty State --- */
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-dim);
+        }
+        .empty-state h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        /* --- Modal --- */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-overlay.show { display: flex; }
+        .modal {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            width: 90%;
+            max-width: 500px;
+        }
+        .modal h2 { margin-bottom: 1rem; }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            margin-bottom: 0.3rem;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 0.6rem;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text);
+            font-size: 0.9rem;
+        }
+        .form-group textarea { min-height: 80px; resize: vertical; }
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        .btn-cancel {
+            padding: 0.5rem 1rem;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            color: var(--text);
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .btn-submit {
+            padding: 0.5rem 1.5rem;
+            background: var(--accent);
+            border: none;
+            color: #fff;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            .sidebar, .right-panel {
+                border-bottom: 1px solid var(--border);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><span>Campaign</span> Coordination Platform</h1>
+        <div class="header-stats">
+            <div class="header-stat">
+                <div class="value" id="stat-campaigns">0</div>
+                <div class="label">Active Campaigns</div>
+            </div>
+            <div class="header-stat">
+                <div class="value" id="stat-actions">0</div>
+                <div class="label">Actions Completed</div>
+            </div>
+            <div class="header-stat">
+                <div class="value" id="stat-participants">0</div>
+                <div class="label">Volunteers</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Left: Campaign List -->
+        <div class="sidebar">
+            <button class="btn-new-campaign" onclick="showNewCampaignModal()">+ New Campaign</button>
+            <h2>Campaigns</h2>
+            <div id="campaign-list"></div>
+        </div>
+
+        <!-- Center: Campaign Detail + Actions -->
+        <div class="main" id="main-content">
+            <div class="empty-state">
+                <h3>Select a campaign or create a new one</h3>
+                <p>Every volunteer gets the right action at the right time.</p>
+            </div>
+        </div>
+
+        <!-- Right: Quick Actions + Activity -->
+        <div class="right-panel">
+            <h2>I Have Time To Help</h2>
+            <div class="time-selector">
+                <div class="time-btn" onclick="suggestActions(5)">
+                    <div class="mins">5</div>
+                    <div class="desc">minutes</div>
+                </div>
+                <div class="time-btn" onclick="suggestActions(15)">
+                    <div class="mins">15</div>
+                    <div class="desc">minutes</div>
+                </div>
+                <div class="time-btn" onclick="suggestActions(30)">
+                    <div class="mins">30</div>
+                    <div class="desc">minutes</div>
+                </div>
+                <div class="time-btn" onclick="suggestActions(120)">
+                    <div class="mins">2hr</div>
+                    <div class="desc">deep work</div>
+                </div>
+            </div>
+            <div id="suggested-actions"></div>
+
+            <h2>Recent Activity</h2>
+            <div id="activity-feed"></div>
+
+            <h2 style="margin-top:1.5rem;">Progress This Week</h2>
+            <div class="chart-container">
+                <h3>Actions Completed by Day</h3>
+                <div class="bar-chart" id="weekly-chart">
+                    <div class="bar" style="height:20%"><span class="label">Mon</span></div>
+                    <div class="bar" style="height:45%"><span class="label">Tue</span></div>
+                    <div class="bar" style="height:30%"><span class="label">Wed</span></div>
+                    <div class="bar" style="height:60%"><span class="label">Thu</span></div>
+                    <div class="bar" style="height:80%"><span class="label">Fri</span></div>
+                    <div class="bar" style="height:40%"><span class="label">Sat</span></div>
+                    <div class="bar" style="height:15%"><span class="label">Sun</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Campaign Modal -->
+    <div class="modal-overlay" id="modal-new-campaign">
+        <div class="modal">
+            <h2>Create Campaign</h2>
+            <div class="form-group">
+                <label>Campaign Name</label>
+                <input type="text" id="new-campaign-name" placeholder="e.g., Smithfield Gestation Crate Phase-Out">
+            </div>
+            <div class="form-group">
+                <label>Campaign Type</label>
+                <select id="new-campaign-type">
+                    <option value="corporate">Corporate Pressure</option>
+                    <option value="legislative">Legislative</option>
+                    <option value="regulatory">Regulatory</option>
+                    <option value="investigation">Investigation</option>
+                    <option value="cultural">Cultural / Narrative</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Target</label>
+                <input type="text" id="new-campaign-target" placeholder="Who or what are we targeting?">
+            </div>
+            <div class="form-group">
+                <label>Goal</label>
+                <textarea id="new-campaign-goal" placeholder="Specific, measurable outcome..."></textarea>
+            </div>
+            <div class="form-actions">
+                <button class="btn-cancel" onclick="hideModal('modal-new-campaign')">Cancel</button>
+                <button class="btn-submit" onclick="createCampaign()">Create Campaign</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API = '/api';
+        let currentCampaignId = null;
+
+        // --- API Helpers ---
+        async function api(path, options = {}) {
+            const res = await fetch(API + path, {
+                headers: { 'Content-Type': 'application/json', ...options.headers },
+                ...options,
+            });
+            if (!res.ok) {
+                const err = await res.json().catch(() => ({}));
+                throw new Error(err.detail || res.statusText);
+            }
+            return res.json();
+        }
+
+        // --- Load Data ---
+        async function loadCampaigns() {
+            try {
+                const campaigns = await api('/campaigns');
+                const list = document.getElementById('campaign-list');
+                list.innerHTML = campaigns.map(c => `
+                    <div class="campaign-card ${c.id === currentCampaignId ? 'active' : ''}"
+                         onclick="selectCampaign(${c.id})">
+                        <div class="name">${esc(c.name)}</div>
+                        <div class="meta">
+                            <span class="status-badge status-${c.status}">${c.status}</span>
+                            <span>${c.campaign_type}</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="fill" style="width:${c.completion_pct}%"></div>
+                        </div>
+                    </div>
+                `).join('');
+
+                const active = campaigns.filter(c => ['active','escalating'].includes(c.status)).length;
+                document.getElementById('stat-campaigns').textContent = active;
+            } catch (e) {
+                console.error('Failed to load campaigns:', e);
+            }
+        }
+
+        async function selectCampaign(id) {
+            currentCampaignId = id;
+            loadCampaigns(); // refresh active state
+
+            try {
+                const [campaign, actions, progress] = await Promise.all([
+                    api(`/campaigns/${id}`),
+                    api(`/actions?campaign_id=${id}`),
+                    api(`/campaigns/${id}/progress`),
+                ]);
+                renderCampaignDetail(campaign, actions, progress);
+            } catch (e) {
+                console.error('Failed to load campaign:', e);
+            }
+        }
+
+        function renderCampaignDetail(campaign, actions, progress) {
+            const main = document.getElementById('main-content');
+
+            const phases = (campaign.escalation_ladder || []).map(p => `
+                <div class="phase-card">
+                    <div class="phase-num">Phase ${p.phase}</div>
+                    <div class="phase-name">${esc(p.name)}</div>
+                    <ul>
+                        ${(p.tactics || []).map(t => `<li>${esc(t)}</li>`).join('')}
+                    </ul>
+                    <div style="font-size:0.7rem;color:var(--text-dim);margin-top:0.5rem;">
+                        ${p.duration_weeks} weeks &middot; Win: ${esc(p.win_trigger)}
+                    </div>
+                </div>
+            `).join('');
+
+            const actionItems = actions.map(a => `
+                <div class="action-item">
+                    <div class="time-badge">
+                        ${a.estimated_minutes}<small>min</small>
+                    </div>
+                    <div class="action-info">
+                        <div class="title">${esc(a.title)}</div>
+                        <div class="desc">${esc(a.description.substring(0, 80))}...</div>
+                    </div>
+                    <span class="type-badge">${a.action_type}</span>
+                    ${a.status === 'available'
+                        ? `<button class="btn-claim" onclick="claimAction(${a.id})">Claim</button>`
+                        : `<span class="status-badge status-${a.status}">${a.status}</span>`
+                    }
+                </div>
+            `).join('') || '<p style="color:var(--text-dim);font-size:0.9rem;">No actions yet. Generate actions from campaign phases.</p>';
+
+            main.innerHTML = `
+                <div class="campaign-header">
+                    <div>
+                        <h2>${esc(campaign.name)}</h2>
+                        <span class="status-badge status-${campaign.status}" style="margin-top:0.3rem;">
+                            ${campaign.status}
+                        </span>
+                    </div>
+                    <div style="text-align:right;font-size:0.8rem;color:var(--text-dim);">
+                        ${campaign.start_date || ''} to ${campaign.deadline || ''}
+                    </div>
+                </div>
+
+                <div class="campaign-goal">${esc(campaign.goal)}</div>
+
+                <div class="metrics-grid">
+                    <div class="metric-card emails">
+                        <div class="value">${progress.completed_actions}</div>
+                        <div class="label">Completed</div>
+                    </div>
+                    <div class="metric-card calls">
+                        <div class="value">${progress.verified_actions}</div>
+                        <div class="label">Verified</div>
+                    </div>
+                    <div class="metric-card comments">
+                        <div class="value">${progress.total_actions}</div>
+                        <div class="label">Total Actions</div>
+                    </div>
+                    <div class="metric-card reviews">
+                        <div class="value">${progress.overdue_actions}</div>
+                        <div class="label">Overdue</div>
+                    </div>
+                    <div class="metric-card media">
+                        <div class="value">${progress.participants_active}</div>
+                        <div class="label">Active Volunteers</div>
+                    </div>
+                    <div class="metric-card responses">
+                        <div class="value">${progress.completion_pct}%</div>
+                        <div class="label">Complete</div>
+                    </div>
+                </div>
+
+                <div class="section-title">Escalation Phases</div>
+                <div class="phases-grid">${phases}</div>
+
+                <div class="section-title">Action Feed</div>
+                <div class="action-feed">${actionItems}</div>
+            `;
+
+            document.getElementById('stat-actions').textContent = progress.completed_actions;
+        }
+
+        // --- Actions ---
+        async function suggestActions(minutes) {
+            if (!currentCampaignId) {
+                document.getElementById('suggested-actions').innerHTML =
+                    '<p style="font-size:0.8rem;color:var(--text-dim);">Select a campaign first.</p>';
+                return;
+            }
+            document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            try {
+                const suggestions = await api('/actions/suggest', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        campaign_id: currentCampaignId,
+                        minutes_available: minutes,
+                    }),
+                });
+                const container = document.getElementById('suggested-actions');
+                if (suggestions.length === 0) {
+                    container.innerHTML = '<p style="font-size:0.8rem;color:var(--text-dim);">No matching actions found.</p>';
+                    return;
+                }
+                container.innerHTML = suggestions.map(s => `
+                    <div class="action-item" style="margin-bottom:0.5rem;">
+                        <div class="time-badge">${s.estimated_minutes}<small>min</small></div>
+                        <div class="action-info">
+                            <div class="title">${esc(s.title)}</div>
+                            <div class="desc">${esc(s.description.substring(0, 60))}...</div>
+                        </div>
+                        <span class="type-badge">${s.action_type}</span>
+                    </div>
+                `).join('');
+            } catch (e) {
+                console.error('Failed to suggest actions:', e);
+            }
+        }
+
+        async function claimAction(actionId) {
+            try {
+                await api(`/actions/${actionId}/claim?participant_id=1`, { method: 'POST' });
+                selectCampaign(currentCampaignId);
+            } catch (e) {
+                alert('Could not claim: ' + e.message);
+            }
+        }
+
+        // --- Campaign Creation ---
+        function showNewCampaignModal() {
+            document.getElementById('modal-new-campaign').classList.add('show');
+        }
+
+        function hideModal(id) {
+            document.getElementById(id).classList.remove('show');
+        }
+
+        async function createCampaign() {
+            const data = {
+                name: document.getElementById('new-campaign-name').value,
+                campaign_type: document.getElementById('new-campaign-type').value,
+                target_summary: document.getElementById('new-campaign-target').value,
+                goal: document.getElementById('new-campaign-goal').value,
+            };
+            if (!data.name || !data.target_summary || !data.goal) {
+                alert('Please fill all fields');
+                return;
+            }
+            try {
+                const campaign = await api('/campaigns', {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                });
+                hideModal('modal-new-campaign');
+                await loadCampaigns();
+                selectCampaign(campaign.id);
+            } catch (e) {
+                alert('Error: ' + e.message);
+            }
+        }
+
+        // --- Utilities ---
+        function esc(str) {
+            if (!str) return '';
+            const d = document.createElement('div');
+            d.textContent = str;
+            return d.innerHTML;
+        }
+
+        // --- Init ---
+        loadCampaigns();
+        loadParticipantCount();
+
+        async function loadParticipantCount() {
+            try {
+                const p = await api('/participants');
+                document.getElementById('stat-participants').textContent = p.length;
+            } catch (e) {}
+        }
+    </script>
+</body>
+</html>

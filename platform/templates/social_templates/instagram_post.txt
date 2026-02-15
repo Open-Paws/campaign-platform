@@ -1,0 +1,80 @@
+==============================================================
+INSTAGRAM POST TEMPLATE
+Campaign: {{ campaign_name }}
+==============================================================
+
+IMAGE/CAROUSEL GUIDELINES:
+- Slide 1: Bold statement or statistic on branded background
+  (high contrast, readable at thumbnail size, campaign colors)
+- Slide 2-3: Evidence (documents, data visualization, photos)
+- Slide 4: What you can do (clear call to action)
+- Slide 5: Share prompt ("Save this. Send to someone who needs to see it.")
+
+Use 1080x1350px (4:5 portrait) for maximum feed real estate.
+
+--------------------------------------------------------------
+CAPTION:
+--------------------------------------------------------------
+
+{{ opening_hook }}
+
+{{ company_or_target_name }} {{ core_accusation_or_finding }}.
+
+Here is what we found:
+
+{{ finding_1 }}
+
+{{ finding_2 }}
+
+{{ finding_3 }}
+
+This is not an isolated incident. {{ pattern_context }}.
+
+What you can do RIGHT NOW:
+
+📞 Call {{ phone_number }} and tell them {{ call_script_summary }}
+📧 Email {{ email_address }} (template in our bio link)
+📱 Share this post -- visibility is pressure
+
+{{ personal_or_emotional_close }}
+
+Every action counts. Companies track social media mentions weekly. Your post, your call, your email -- they add up.
+
+Link in bio for full details and action toolkit.
+
+.
+.
+.
+#{{ campaign_hashtag }} {{ niche_hashtags }}
+{{ location_hashtags }}
+{{ broad_hashtags }}
+
+--------------------------------------------------------------
+HASHTAG STRATEGY (30 max):
+--------------------------------------------------------------
+
+Tier 1 - Campaign specific (2-3):
+#{{ campaign_hashtag }}
+{{ custom_hashtags }}
+
+Tier 2 - Issue specific (5-8):
+{{ issue_hashtags }}
+
+Tier 3 - Broad reach (5-8):
+{{ broad_reach_hashtags }}
+
+Tier 4 - Location if relevant (2-3):
+{{ location_hashtags_list }}
+
+--------------------------------------------------------------
+POSTING NOTES:
+--------------------------------------------------------------
+
+- Post between 11am-1pm or 7-9pm for maximum reach
+- Reply to every comment in the first hour (algorithm boost)
+- Share to Stories immediately after posting with "New Post" sticker
+- Add to relevant Story Highlight for long-term visibility
+- DM to 5+ aligned accounts and ask them to engage early
+
+Track at: {{ tracking_url }}
+==============================================================

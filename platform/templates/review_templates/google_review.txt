@@ -1,0 +1,89 @@
+==============================================================
+GOOGLE REVIEW TEMPLATE (FACTUAL)
+Target: {{ business_name }}
+Location: {{ business_location }}
+==============================================================
+
+CRITICAL GUIDELINES:
+- Every claim must be factual and verifiable
+- Cite specific reports, dates, and sources
+- Personal experience is strongest (if you have it)
+- Emotional but accurate -- feel it and cite it
+- Reviews that include verifiable facts are much harder to remove
+- Do NOT coordinate language (each review must be unique)
+- Do NOT use the template verbatim -- use it as a framework
+
+--------------------------------------------------------------
+REVIEW FRAMEWORK:
+--------------------------------------------------------------
+
+STAR RATING: {{ star_rating }} star(s)
+
+TITLE LINE (appears bold in some displays):
+{{ review_title }}
+
+BODY:
+
+Opening (personal connection or context):
+"{{ personal_connection_or_context }}"
+
+[Choose the framing that applies to you:]
+
+AS A CUSTOMER:
+"As a customer of {{ business_name }}, I was troubled to learn
+{{ documented_finding }}. This was documented by {{ source }}
+on {{ date }}."
+
+AS A COMMUNITY MEMBER:
+"I live near {{ business_name }}'s {{ facility_type }} in {{ location }}.
+{{ firsthand_observation }}. Public records show {{ documented_finding }}
+({{ source }}, {{ date }})."
+
+AS A CONCERNED CONSUMER:
+"I researched {{ business_name }} before {{ purchasing_decision }} and
+found {{ documented_finding }}. According to {{ source }} ({{ date }}),
+{{ specific_detail }}."
+
+Specific findings (pick 2-3, cite each):
+"Specifically:
+- {{ finding_1 }} (Source: {{ source_1 }})
+- {{ finding_2 }} (Source: {{ source_2 }})
+- {{ finding_3 }} (Source: {{ source_3 }})"
+
+Impact statement:
+"{{ impact_statement }}"
+
+Constructive element (makes removal harder):
+"I would reconsider my rating if {{ business_name }} {{ improvement_ask }}.
+Until then, other consumers deserve to know this information."
+
+--------------------------------------------------------------
+WHAT MAKES REVIEWS STICK (resist removal):
+--------------------------------------------------------------
+
+1. First-person experience or clearly attributed sources
+2. Specific dates, report numbers, or document references
+3. Constructive tone (willing to update if company improves)
+4. No profanity, threats, or unverifiable claims
+5. Unique language (platform algorithms flag identical text)
+
+--------------------------------------------------------------
+WHAT GETS REVIEWS REMOVED:
+--------------------------------------------------------------
+
+- Hearsay without sources
+- Identical text across multiple reviews
+- Claims you cannot back up if challenged
+- Reviewing a location you clearly never interacted with
+- Profanity or personal attacks on employees
+
+--------------------------------------------------------------
+AFTER POSTING:
+--------------------------------------------------------------
+
+- Screenshot your review immediately
+- Log at: {{ tracking_url }}
+- Check back in 48 hours (Google may flag for review)
+- If removed, repost with slight modifications and even more sources
+- Respond professionally to any business reply
+==============================================================

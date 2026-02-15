@@ -1,0 +1,43 @@
+Subject: Inquiry Regarding Material ESG Risks - {{ company_name }} ({{ ticker_symbol }})
+
+{{ ir_contact_name }}
+Investor Relations
+{{ company_name }}
+{{ company_address }}
+
+Dear {{ ir_contact_name }},
+
+I am writing to request information regarding material risks related to {{ company_name }}'s {{ business_segment }} operations that I believe warrant disclosure to investors.
+
+BACKGROUND:
+Recent {{ source_type }} ({{ source_reference }}, {{ source_date }}) has documented the following concerning {{ company_name }}'s operations:
+
+{% for item in risk_items %}
+{{ loop.index }}. {{ item }}
+{% endfor %}
+
+MATERIALITY CONCERNS:
+These findings raise questions about material risks in several categories:
+
+Regulatory Risk: {{ regulatory_risk_description }}
+The current regulatory environment is trending toward stricter enforcement in this area. {{ regulatory_trend_detail }}.
+
+Reputational Risk: {{ reputational_risk_description }}
+Public awareness of these practices is growing, as evidenced by {{ public_awareness_evidence }}.
+
+Litigation Risk: {{ litigation_risk_description }}
+Similar operations have faced legal action including {{ comparable_litigation }}.
+
+SPECIFIC QUESTIONS:
+1. Has {{ company_name }}'s board assessed the material risks described above? If so, what was the conclusion?
+2. What is {{ company_name }}'s current policy regarding {{ policy_area }}?
+3. Has {{ company_name }} received any regulatory notices, warning letters, or citations related to {{ violation_area }} in the past 36 months?
+4. What capital expenditures or operational changes has {{ company_name }} budgeted for compliance with {{ upcoming_regulation }}?
+5. How does {{ company_name }} plan to address the competitive disadvantage of maintaining current practices while peers transition to {{ industry_trend }}?
+
+I am requesting a written response within 30 business days. Should these material risks not be adequately addressed in {{ company_name }}'s upcoming {{ next_filing }} filing, I intend to raise these concerns through {{ escalation_channel }}.
+
+Respectfully,
+{{ sender_name }}
+{% if shareholder_status %}Current shareholder since {{ shares_since }}{% endif %}
+{{ sender_contact }}

@@ -1,0 +1,99 @@
+==============================================================
+PHONE SCRIPT: CORPORATE CONSUMER LINE
+==============================================================
+Company: {{ company_name }}
+Phone: {{ consumer_line_number }}
+Issue: {{ issue_summary }}
+Your ask: {{ specific_ask }}
+==============================================================
+
+BEFORE YOU CALL:
+- You are calling as a consumer, not a protester. Be calm and factual.
+- Corporate consumer lines log every call. Volume matters.
+- Ask to speak with a supervisor if the frontline agent cannot address
+  your concern. Supervisor escalations get flagged in reports.
+- Have a specific product or service you use (or used to use) in mind.
+
+--------------------------------------------------------------
+WHEN THEY ANSWER:
+--------------------------------------------------------------
+
+"Hello, I'm calling as a {{ customer_type }} of {{ company_name }}.
+I have a concern about {{ issue_summary }} that is affecting my
+purchasing decisions."
+
+--------------------------------------------------------------
+DELIVER YOUR MESSAGE:
+--------------------------------------------------------------
+
+"I recently learned that {{ company_name }} {{ specific_practice }}.
+I found this concerning because {{ reason }}.
+
+I wanted {{ company_name }} to know that this is influencing whether
+I continue {{ purchasing_relationship }}."
+
+--------------------------------------------------------------
+MAKE YOUR ASK:
+--------------------------------------------------------------
+
+"Specifically, I'm asking {{ company_name }} to {{ specific_ask }}.
+
+Other companies in this space, including {{ competitor_names }}, have
+already made this commitment. I would prefer to stay with
+{{ company_name }}, but I need to see progress on this issue."
+
+--------------------------------------------------------------
+HANDLING RESPONSES:
+--------------------------------------------------------------
+
+IF they say "I'll pass along your feedback":
+"Thank you. Can you tell me the reference number for this call?
+I'd like to follow up."
+
+IF they say "That's not something we handle here":
+"I understand. Can you connect me with someone in {{ department }}
+who can address this? Or provide me with a direct contact?"
+
+IF they offer a scripted response about company values:
+"I appreciate that, but I'm looking for specific commitments, not
+general statements. {{ counter_to_pr_line }}. What concrete steps
+is {{ company_name }} taking?"
+
+IF they get defensive:
+Stay calm. "I'm not trying to be difficult. I'm a concerned
+{{ customer_type }} giving you honest feedback. Companies that
+listen to customers do better in the long run."
+
+--------------------------------------------------------------
+ASK FOR ESCALATION:
+--------------------------------------------------------------
+
+"I'd like this concern escalated to a supervisor or your corporate
+responsibility team. Can you transfer me or provide a direct contact?"
+
+If transferred to supervisor, repeat your ask. Supervisor calls are
+weighted more heavily in corporate reporting.
+
+--------------------------------------------------------------
+CLOSING:
+--------------------------------------------------------------
+
+"Thank you for taking my call. Please make sure this feedback reaches
+your corporate team. I'll be following up.
+
+Can you confirm my call reference number?"
+
+Write down: Reference # _______________
+
+--------------------------------------------------------------
+AFTER THE CALL:
+--------------------------------------------------------------
+
+Log at: {{ tracking_url }}
+- Call reference number
+- Who you spoke with
+- Response received
+- Escalated to supervisor? Y/N
+
+Every call adds to the count. Companies track these numbers weekly.
+==============================================================

@@ -1,0 +1,42 @@
+Subject: {{ company_name }} - Request for Action on {{ issue_summary }}
+
+Dear {{ ceo_name }},
+
+I am writing to you directly because the issue I am raising demands leadership-level attention.
+
+THE ISSUE:
+{{ company_name }}'s {{ facility_or_practice }} has been documented {{ violation_description }}. This is not an allegation -- it is supported by {{ evidence_source }} ({{ evidence_date }}).
+
+Specifically:
+{% for finding in key_findings %}
+- {{ finding }}
+{% endfor %}
+
+WHY THIS MATTERS TO YOUR BUSINESS:
+Consumers are increasingly making purchasing decisions based on corporate practices. {{ company_name }}'s competitors -- including {{ competitor_names }} -- have already committed to {{ industry_standard }}. Your company's current practices represent both a reputational liability and a material risk to shareholder value.
+
+{% if investor_relevance %}
+I note that {{ investor_relevance }}, which makes this a matter of fiduciary concern as well.
+{% endif %}
+
+MY SPECIFIC ASK:
+I am requesting that {{ company_name }}:
+
+1. {{ primary_ask }}
+2. {{ secondary_ask }}
+3. Publish a timeline for implementation with independent verification
+
+I would appreciate a substantive response within 30 days. If I do not receive one, I intend to {{ escalation_next_step }}.
+
+{% if personal_connection %}
+On a personal note: {{ personal_connection }}. This is not abstract for me.
+{% endif %}
+
+I believe {{ company_name }} can lead on this issue rather than being forced to follow. The choice is yours.
+
+Respectfully,
+{{ sender_name }}
+{{ sender_location }}
+{% if sender_credentials %}{{ sender_credentials }}{% endif %}
+
+cc: {{ cc_list }}
