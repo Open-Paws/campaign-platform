@@ -91,6 +91,16 @@ platform/
 | GET | `/api/metrics/{id}` | Impact metrics |
 | GET | `/api/metrics/{id}/roi` | ROI analysis |
 
+## Architecture Role
+
+This repo is the **campaign coordination layer** for the Open Paws ecosystem. Specialized execution tools plug into it:
+
+- [`persona-agent`](https://github.com/Open-Paws/persona-agent) — social media execution backend for campaign actions
+- [`corporate-campaign-intelligence`](https://github.com/Open-Paws/corporate-campaign-intelligence) — canonical company/target data
+- [`foia-rti-automation`](https://github.com/Open-Paws/foia-rti-automation) — FOIA/RTI request generation for investigation campaigns
+
+The `email-outreach-automation` and `volunteer-manager` stubs have been archived — their functionality is handled here.
+
 ## Design Principles
 
 1. **Right action, right time** -- Match actions to available time. A five-minute phone call counts.
